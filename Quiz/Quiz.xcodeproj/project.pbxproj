@@ -12,6 +12,8 @@
 		279BAC8D1B674E5F00FEF3A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 279BAC8C1B674E5F00FEF3A8 /* Images.xcassets */; };
 		279BAC9C1B674E6000FEF3A8 /* QuizTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 279BAC9B1B674E6000FEF3A8 /* QuizTests.m */; };
 		279BACA61B674F8F00FEF3A8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 279BACA51B674F8F00FEF3A8 /* Default-568h@2x.png */; };
+		279BACAA1B6752BC00FEF3A8 /* QuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279BACA81B6752BC00FEF3A8 /* QuizViewController.m */; };
+		279BACAB1B6752BC00FEF3A8 /* QuizViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 279BACA91B6752BC00FEF3A8 /* QuizViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,9 @@
 		279BAC9A1B674E6000FEF3A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		279BAC9B1B674E6000FEF3A8 /* QuizTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuizTests.m; sourceTree = "<group>"; };
 		279BACA51B674F8F00FEF3A8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		279BACA71B6752BC00FEF3A8 /* QuizViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizViewController.h; sourceTree = "<group>"; };
+		279BACA81B6752BC00FEF3A8 /* QuizViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizViewController.m; sourceTree = "<group>"; };
+		279BACA91B6752BC00FEF3A8 /* QuizViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuizViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +86,9 @@
 				279BAC841B674E5F00FEF3A8 /* AppDelegate.m */,
 				279BAC8C1B674E5F00FEF3A8 /* Images.xcassets */,
 				279BAC7F1B674E5F00FEF3A8 /* Supporting Files */,
+				279BACA71B6752BC00FEF3A8 /* QuizViewController.h */,
+				279BACA81B6752BC00FEF3A8 /* QuizViewController.m */,
+				279BACA91B6752BC00FEF3A8 /* QuizViewController.xib */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -160,6 +168,7 @@
 				TargetAttributes = {
 					279BAC7B1B674E5F00FEF3A8 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 7FK2944J5J;
 					};
 					279BAC941B674E6000FEF3A8 = {
 						CreatedOnToolsVersion = 6.4;
@@ -193,6 +202,7 @@
 			files = (
 				279BAC8D1B674E5F00FEF3A8 /* Images.xcassets in Resources */,
 				279BACA61B674F8F00FEF3A8 /* Default-568h@2x.png in Resources */,
+				279BACAB1B6752BC00FEF3A8 /* QuizViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +222,7 @@
 			files = (
 				279BAC851B674E5F00FEF3A8 /* AppDelegate.m in Sources */,
 				279BAC821B674E5F00FEF3A8 /* main.m in Sources */,
+				279BACAA1B6752BC00FEF3A8 /* QuizViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Quiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -328,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Quiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

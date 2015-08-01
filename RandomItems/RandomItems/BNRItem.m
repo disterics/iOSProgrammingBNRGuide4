@@ -21,8 +21,8 @@
     NSInteger nounIndex = arc4random() % [randomNounList count];
     // NSInteger is a type definition and not an object
     
-    NSString *randomName = [NSString stringWithFormat:@"%@ %@", [randomAdjectiveList objectAtIndex:adjectiveIndex],
-                            [randomNounList objectAtIndex:nounIndex]];
+    NSString *randomName = [NSString stringWithFormat:@"%@ %@", randomAdjectiveList[adjectiveIndex],
+                            randomNounList[nounIndex]];
     
     int randomValue = arc4random() % 100;
     NSString *randomSerialNumber = [NSString stringWithFormat:@"%c%c%c%c%c",

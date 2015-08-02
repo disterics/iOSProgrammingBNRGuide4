@@ -59,6 +59,7 @@
     return [self initWithItemName:name valueInDollars:0 serialNumber:@""];
 }
 
+
 - (instancetype)init
 {
     return [self initWithItemName:@"Item"];
@@ -103,4 +104,13 @@
                                    self.valueInDollars, self.dateCreated];
     return descriptionString;
 }
+
+#pragma mark - silver challenge
+- (instancetype)initWithItemName:(NSString *)name
+                    serialNumber:(NSString *)sNumber
+{
+    return [self initWithItemName:name valueInDollars:0 serialNumber:sNumber];
+}
+
+
 @end

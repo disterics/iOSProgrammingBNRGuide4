@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BNRContainer.h"
 #import "BNRItem.h"
 
 int main(int argc, const char * argv[]) {
@@ -25,6 +26,25 @@ int main(int argc, const char * argv[]) {
             NSLog(@"%@", item);
         }
         
+        BNRContainer *superContainer = [BNRContainer randomItem];
+        for (int i = 0; i < 10; ++i)
+        {
+            bool isContainer = ((arc4random() % 2) == 0);
+            if (isContainer)
+            {
+                BNRContainer *tempContainer = [BNRContainer randomItem];
+                for (int i = 0; i < 10; ++i)
+                {
+                    [tempContainer addSubItem:[BNRItem randomItem]];
+                }
+                [superContainer addSubItem:tempContainer];
+            }
+            else
+            {
+                [superContainer addSubItem:[BNRItem randomItem]];
+            }
+        }
+        NSLog(@"Super Container: \n%@", superContainer);
         // Destory the mutable array object
         items = nil;
     }

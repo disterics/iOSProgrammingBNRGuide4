@@ -34,7 +34,7 @@
 
 - (int)containerValueInDollars
 {
-    return _valueInDollars;
+    return [super valueInDollars];
 }
 
 - (int)valueInDollars

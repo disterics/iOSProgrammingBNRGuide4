@@ -10,6 +10,12 @@
 
 @implementation BNRItem
 
+#pragma mark - synthesize
+// example of explicit synthesize
+// generates the code for -setContainer: and -container,
+// creates and uses the instance variable _customIVarName
+@synthesize container = _customIVarName;
+
 + (instancetype)randomItem
 {
     // Create an immutable array of three adjectives

@@ -81,6 +81,12 @@
     NSLog(@"Destroyed: %@", self);
 }
 
+- (void)setContainedItem:(BNRItem *)item
+{
+    _containedItem = item;
+    // set the items container
+    self.containedItem.container = self;
+}
 
 
 #pragma mark - silver challenge

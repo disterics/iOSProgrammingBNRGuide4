@@ -49,18 +49,66 @@
     [[UIColor lightGrayColor] setStroke];
     // draw the circle
     [path stroke];
-    
-#pragma mark - Gold challenge - shadows and gradients
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(currentContext);
-    CGContextSetShadow(currentContext, CGSizeMake(4, 7), 3);
+    CGRect challengeRect = [self getCenteredHalfRectOf:rect];
+    [self drawTriangleWithGradientWithin:challengeRect];
+    [self drawLogoWithin:[self getCenteredHalfRectOf:rect] withShadow:YES];
+}
+
 #pragma mark - Bronze challenge
+-(void) drawLogoWithin:(CGRect) rect
+{
     UIImage *logoImage = [UIImage imageNamed:@"logo.png"];
     [logoImage drawInRect:rect];
+}
 
-#pragma mark - Gold challenge - shadows and gradients cont
+#pragma mark - Gold challenge - shadows and gradients
+-(void) drawTriangleWithGradientWithin:(CGRect) rect
+{
+    CGFloat locations[2] = { 0.0, 1.0 };
+    CGFloat components[8] = { 1.0, 1.0, 0.0, 1.0, // start color is yellow
+                              0.0, 1.0, 0.0, 1.0 }; // end color is green
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, 2);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(currentContext);
+    UIBezierPath *path = [self createTrianglePathWithin: rect];
+    [path addClip];
+    CGPoint startPoint = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+    CGPoint endPoint = rect.origin;
+    CGContextDrawLinearGradient(currentContext, gradient, startPoint, endPoint, 0);
+    CGGradientRelease(gradient);
+    CGColorSpaceRelease(colorSpace);
     CGContextRestoreGState(currentContext);
 }
 
+-(void) drawLogoWithin:(CGRect)rect withShadow:(BOOL)drawShadow
+{
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(currentContext);
+    if (drawShadow) CGContextSetShadow(currentContext, CGSizeMake(4, 7), 3);
+    [self drawLogoWithin:rect];
+    CGContextRestoreGState(currentContext);
+}
 
+-(CGRect) getCenteredHalfRectOf:(CGRect)rect
+{
+    float x = rect.origin.x + (rect.size.width / 4.0);
+    float y = rect.origin.y + (rect.size.height / 4.0);
+    float w = rect.size.width / 2.0;
+    float h = rect.size.height / 2.0;
+    return CGRectMake(x, y, w, h);
+}
+
+-(UIBezierPath *) createTrianglePathWithin:(CGRect) rect
+{
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    CGPoint apex = CGPointMake(rect.origin.x + rect.size.width / 2.0, rect.origin.y);
+    float bottomY = rect.origin.y + rect.size.height;
+    float rightX= rect.origin.x + rect.size.width;
+    [path moveToPoint:apex];
+    [path addLineToPoint:CGPointMake(rect.origin.x, bottomY)];
+    [path addLineToPoint:CGPointMake(rightX, bottomY)];
+    [path addLineToPoint:apex];
+    return path;
+}
 @end

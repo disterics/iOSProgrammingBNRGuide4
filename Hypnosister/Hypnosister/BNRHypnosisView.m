@@ -50,9 +50,16 @@
     // draw the circle
     [path stroke];
     
+#pragma mark - Gold challenge - shadows and gradients
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(currentContext);
+    CGContextSetShadow(currentContext, CGSizeMake(4, 7), 3);
 #pragma mark - Bronze challenge
     UIImage *logoImage = [UIImage imageNamed:@"logo.png"];
     [logoImage drawInRect:rect];
+
+#pragma mark - Gold challenge - shadows and gradients cont
+    CGContextRestoreGState(currentContext);
 }
 
 

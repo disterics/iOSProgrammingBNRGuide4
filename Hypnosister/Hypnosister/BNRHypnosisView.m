@@ -49,6 +49,10 @@
     [[UIColor lightGrayColor] setStroke];
     // draw the circle
     [path stroke];
+    
+#pragma mark - Bronze challenge
+    UIImage *logoImage = [UIImage imageNamed:@"logo.png"];
+    [logoImage drawInRect:rect];
 }
 
 

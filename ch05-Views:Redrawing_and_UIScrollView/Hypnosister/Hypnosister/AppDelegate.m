@@ -23,15 +23,23 @@
     CGRect screenRect = self.window.bounds;
     CGRect bigRect = screenRect;
     bigRect.size.width *= 2.0;
-    bigRect.size.height *= 2.0;
     
     // create a screen-sized scroll view and add it to the window
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
+    scrollView.pagingEnabled = YES;
     [self.window addSubview:scrollView];
     
-    // Create a super-sized hypnosis view and add it to the scroll view
-    BNRHypnosisView *firstView = [[BNRHypnosisView alloc] initWithFrame:bigRect];
-    [scrollView addSubview:firstView];
+    // Create a screen-sized hypnosis view and add it to the scroll view
+    BNRHypnosisView *hypnosisView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:hypnosisView];
+    
+    // Add a second screen-sized hypnosis view just off the screen to the right
+    screenRect.origin.x += screenRect.size.width;
+    BNRHypnosisView *rightView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:rightView];
+    
+    
+    
     scrollView.contentSize = bigRect.size;
 
     self.window.backgroundColor = [UIColor whiteColor];

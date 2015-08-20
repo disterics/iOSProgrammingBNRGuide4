@@ -7,7 +7,17 @@
 //
 
 #import "BNRHypnosisViewController.h"
+#import "BNRHypnosisView.h"
 
 @implementation BNRHypnosisViewController
 
+- (void)loadView
+{
+    // CReate a view
+    CGRect frame = [UIScreen mainScreen].bounds;
+    BNRHypnosisView *backgroundView = [[BNRHypnosisView alloc] initWithFrame:frame];
+    
+    // set it as *the* view of this view controller
+    self.view = backgroundView;
+}
 @end

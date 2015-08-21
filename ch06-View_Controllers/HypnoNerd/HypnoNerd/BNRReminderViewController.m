@@ -46,6 +46,7 @@
     note.alertBody = @"Hyponitize me!";
     note.fireDate = date;
     
+    [self registerForNotifications];
     [[UIApplication sharedApplication] scheduleLocalNotification:note];
 }
 
@@ -63,5 +64,13 @@
     self.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:60];
 }
 
+- (void) registerForNotifications
+{
+    // register local notifications if we are running on an OS that requires it
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
 
+}
 @end

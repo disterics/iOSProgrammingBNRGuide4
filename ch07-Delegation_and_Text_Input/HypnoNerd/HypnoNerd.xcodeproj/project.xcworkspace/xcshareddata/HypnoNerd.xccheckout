@@ -14,7 +14,7 @@
 		<string>github.com:disterics/iOSProgrammingBNRGuide4.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ch06-View_Controllers/HypnoNerd/HypnoNerd.xcodeproj</string>
+	<string>ch07-Delegation_and_Text_Input/HypnoNerd/HypnoNerd.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>813513A513393A3666B107BB63AD381205C17EDB</key>

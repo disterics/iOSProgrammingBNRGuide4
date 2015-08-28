@@ -10,4 +10,16 @@
 
 @implementation BNRItemsViewController
 
+- (instancetype) init
+{
+    return [self initWithStyle:UITableViewStylePlain];
+}
+
+- (instancetype) initWithStyle:(UITableViewStyle) style
+{
+    // Call the superclass's designated initializer
+    self = [super initWithStyle:UITableViewStylePlain];
+    return self;
+}
+
 @end

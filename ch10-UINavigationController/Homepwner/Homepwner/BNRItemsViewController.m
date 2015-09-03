@@ -129,7 +129,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BNRDetailViewController *dvc = [[BNRDetailViewController alloc] init];
+    NSArray *items = [[BNRItemStore sharedStore] allItems];
+    BNRItem *selectedItem = items[indexPath.row];
     
+    // give the detail view controller an item object
+    // this really should be an initWithItem initializer
+    dvc.item = selectedItem;
     // push it unto the top of the nav controller stack
     [self.navigationController pushViewController:dvc animated:YES];
 }

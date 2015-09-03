@@ -83,6 +83,8 @@
     [self.tableView setTableHeaderView:header];
 }
 
+#pragma mark - UITableViewDataSource protocol
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[[BNRItemStore sharedStore] allItems] count];
@@ -103,6 +105,19 @@
     cell.textLabel.text = [item description];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // if the table view is asking to commit a delete command
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        NSArray *items = [[BNRItemStore sharedStore] allItems];
+        BNRItem *item = items[indexPath.row];
+        [[BNRItemStore sharedStore] removeItem:item];
+        // remove the row from the table view
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 @end

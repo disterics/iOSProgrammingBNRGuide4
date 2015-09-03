@@ -14,8 +14,6 @@
 
 @interface BNRItemsViewController ()
 
-@property (nonatomic, strong) IBOutlet UIView *headerView;
-
 @end
 
 @implementation BNRItemsViewController
@@ -31,18 +29,17 @@
     self = [super initWithStyle:UITableViewStylePlain];
     if (self)
     {
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Homepwner";
+        
+        // new bar button that will create a new item
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+        
+        // set at the right item in the navigationItem
+        navItem.rightBarButtonItem = bbi;
+        navItem.leftBarButtonItem = self.editButtonItem;
     }
     return self;
-}
-
-- (UIView *)headerView
-{
-    // if we have not loaded the hederView yet
-    if (!_headerView)
-    {
-        [[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil];
-    }
-    return _headerView;
 }
 
 - (IBAction)addNewItem:(id)sender
@@ -58,30 +55,10 @@
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
 }
 
--(IBAction)toggleEditingMode:(id)sender
-{
-    if (self.isEditing)
-    {
-        // change the text to infor user of the state
-        [sender setTitle:@"Edit" forState:UIControlStateNormal];
-        // turn off editing mode
-        [self setEditing:NO animated:YES];
-    }
-    else
-    {
-        // change the text to inform user of the state
-        [sender setTitle:@"Done" forState:UIControlStateNormal];
-        // turn on editing mode
-        [self setEditing:YES animated:YES];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
-    UIView *header = [self headerView];
-    [self.tableView setTableHeaderView:header];
 }
 
 - (void)viewWillAppear:(BOOL)animated

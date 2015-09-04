@@ -12,7 +12,7 @@
 #import "BNRImageStore.h"
 
 @interface BNRDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate,
-                                        UITextFieldDelegate>
+                                        UITextFieldDelegate, UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *serialNumberField;
@@ -22,12 +22,21 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
 
+@property (strong, nonatomic) UIPopoverController *imagePickerPopover;
+
 @end
 
 @implementation BNRDetailViewController
 
 - (IBAction)takePicture:(id)sender
 {
+    if ([self.imagePickerPopover isPopoverVisible])
+    {
+        // get rid of the existing one
+        [self.imagePickerPopover dismissPopoverAnimated:YES];
+        self.imagePickerPopover = nil;
+        return;
+    }
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     // if the device has a camera take a picture, else just pick from
     // the photo library
@@ -41,7 +50,20 @@
     }
     imagePicker.delegate = self;
     
-    [self presentViewController:imagePicker animated:YES completion:NULL];
+    // Place the image picker on the screen
+    // check for ipda before instantiating the popover controller
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        self.imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+        self.imagePickerPopover.delegate = self;
+        // display the popover controller; send
+        // is the camera bar button item
+        [self.imagePickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else
+    {
+        [self presentViewController:imagePicker animated:YES completion:NULL];
+    }
 }
 
 - (IBAction)backgroundTapped:(id)sender
@@ -180,7 +202,15 @@
     
     // Take the image picker off the screen -
     // we must this dismiss method
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    if (self.imagePickerPopover)
+    {
+        [self.imagePickerPopover dismissPopoverAnimated:YES];
+        self.imagePickerPopover = nil;
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -189,4 +219,12 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+#pragma mark - UIPopoverControllerDelegate
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    NSLog(@"Dismiss popover");
+    self.imagePickerPopover = nil;
+}
+
 @end

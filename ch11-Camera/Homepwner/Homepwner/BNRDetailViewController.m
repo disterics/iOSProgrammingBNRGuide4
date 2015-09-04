@@ -10,16 +10,36 @@
 
 #import "BNRItem.h"
 
-@interface BNRDetailViewController ()
+@interface BNRDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *serialNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *valueField;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @end
 
 @implementation BNRDetailViewController
+
+- (IBAction)takePicture:(id)sender
+{
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    // if the device has a camera take a picture, else just pick from
+    // the photo library
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    imagePicker.delegate = self;
+    
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -61,4 +81,21 @@
     _item = item;
     self.navigationItem.title = _item.itemName;
 }
+
+#pragma mark - UINavigationControllerDelegate
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // Get the image from the info dictionary
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    // put the image into the screen
+    self.imageView.image = image;
+    
+    // Take the image picker off the screen -
+    // we must this dismiss method
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 @end

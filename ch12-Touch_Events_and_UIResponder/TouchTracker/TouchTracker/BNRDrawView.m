@@ -12,7 +12,7 @@
 
 @interface BNRDrawView ()
 
-@property (nonatomic, strong) BNRLine *currentLine;
+@property (nonatomic, strong) NSMutableDictionary *linesInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
 
 @end
@@ -25,8 +25,10 @@
     
     if (self)
     {
+        self.linesInProgress = [[NSMutableDictionary alloc] init];
         self.finishedLines = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor grayColor];
+        self.multipleTouchEnabled = YES;
     }
     return self;
 }
@@ -50,42 +52,82 @@
     {
         [self strokeLine:line];
     }
-    
-    if (self.currentLine)
+
+    // draw the lines in progress in red
+    [[UIColor redColor] set];
+    for (NSValue *key in self.linesInProgress)
     {
-        // draw the current line in red
-        [[UIColor redColor] set];
-        [self strokeLine:self.currentLine];
+        [self strokeLine:self.linesInProgress[key]];
     }
+//    for (BNRLine *line in self.linesInProgress.allValues)
+//    {
+//        [self strokeLine:line];
+//    }
 }
 
 #pragma mark - Touch Event Handlers
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *t = [touches anyObject];
-    //get the location in the view's co-ordinate system
-    CGPoint location = [t locationInView:self];
-    self.currentLine = [[BNRLine alloc] init];
-    self.currentLine.begin = location;
-    self.currentLine.end = location;
+    // log to see order of events
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     
+    for (UITouch *t in touches)
+    {
+        //get the location in the view's co-ordinate system
+        CGPoint location = [t locationInView:self];
+        BNRLine *line = [[BNRLine alloc] init];
+        line.begin = location;
+        line.end = location;
+        NSValue *key = [NSValue valueWithNonretainedObject:t]; // essentially the address of the touch event
+        self.linesInProgress[key] = line;
+    }
     [self setNeedsDisplay];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *t = [touches anyObject];
-    CGPoint location = [t locationInView:self];
-    self.currentLine.end = location;
+    // log to see order of events
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+
+    for (UITouch *t in touches)
+    {
+        NSValue *key = [NSValue valueWithNonretainedObject:t];
+        BNRLine *line = self.linesInProgress[key];
+
+        CGPoint location = [t locationInView:self];
+        line.end = location;
+    }
     
     [self setNeedsDisplay];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.finishedLines addObject:self.currentLine];
-    self.currentLine = nil;
+    // log to see order of events
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    for (UITouch *t in touches)
+    {
+        NSValue *key = [NSValue valueWithNonretainedObject:t];
+        BNRLine *line = self.linesInProgress[key];
+
+        [self.finishedLines addObject:line];
+        [self.linesInProgress removeObjectForKey:key];
+    }
+    [self setNeedsDisplay];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // log to see order of events
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    // Why cant we do - [self.linesInProgress removeAllObjects]???
+    for (UITouch *t in touches)
+    {
+        NSValue *key = [NSValue valueWithNonretainedObject:t];
+        [self.linesInProgress removeObjectForKey:key];
+    }
     [self setNeedsDisplay];
 }
 @end

@@ -12,6 +12,9 @@
 		272C146D1B99339300D7C307 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 272C146C1B99339300D7C307 /* Images.xcassets */; };
 		272C14701B99339300D7C307 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272C146E1B99339300D7C307 /* LaunchScreen.xib */; };
 		272C147C1B99339300D7C307 /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 272C147B1B99339300D7C307 /* TouchTrackerTests.m */; };
+		272C14871B99358B00D7C307 /* BNRLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 272C14861B99358B00D7C307 /* BNRLine.m */; };
+		272C148A1B99360400D7C307 /* BNRDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272C14891B99360400D7C307 /* BNRDrawView.m */; };
+		272C148D1B99366900D7C307 /* BNRDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272C148C1B99366900D7C307 /* BNRDrawViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,12 @@
 		272C14751B99339300D7C307 /* TouchTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		272C147A1B99339300D7C307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		272C147B1B99339300D7C307 /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
+		272C14851B99358B00D7C307 /* BNRLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRLine.h; sourceTree = "<group>"; };
+		272C14861B99358B00D7C307 /* BNRLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRLine.m; sourceTree = "<group>"; };
+		272C14881B99360400D7C307 /* BNRDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRDrawView.h; sourceTree = "<group>"; };
+		272C14891B99360400D7C307 /* BNRDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRDrawView.m; sourceTree = "<group>"; };
+		272C148B1B99366900D7C307 /* BNRDrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRDrawViewController.h; sourceTree = "<group>"; };
+		272C148C1B99366900D7C307 /* BNRDrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRDrawViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +87,12 @@
 			children = (
 				272C14691B99339300D7C307 /* AppDelegate.h */,
 				272C146A1B99339300D7C307 /* AppDelegate.m */,
+				272C14881B99360400D7C307 /* BNRDrawView.h */,
+				272C14891B99360400D7C307 /* BNRDrawView.m */,
+				272C148B1B99366900D7C307 /* BNRDrawViewController.h */,
+				272C148C1B99366900D7C307 /* BNRDrawViewController.m */,
+				272C14851B99358B00D7C307 /* BNRLine.h */,
+				272C14861B99358B00D7C307 /* BNRLine.m */,
 				272C146C1B99339300D7C307 /* Images.xcassets */,
 				272C146E1B99339300D7C307 /* LaunchScreen.xib */,
 				272C14651B99339300D7C307 /* Supporting Files */,
@@ -211,7 +226,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				272C146B1B99339300D7C307 /* AppDelegate.m in Sources */,
+				272C148D1B99366900D7C307 /* BNRDrawViewController.m in Sources */,
+				272C14871B99358B00D7C307 /* BNRLine.m in Sources */,
 				272C14681B99339300D7C307 /* main.m in Sources */,
+				272C148A1B99360400D7C307 /* BNRDrawView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +416,7 @@
 				272C14811B99339300D7C307 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		272C14821B99339300D7C307 /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -406,6 +425,7 @@
 				272C14841B99339300D7C307 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -47,12 +47,16 @@
     // create a new item and add it to the store
     BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
     
-    // figure out where the item is in the array
-    NSInteger lastRow = [[[BNRItemStore sharedStore] allItems] indexOfObject:newItem];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+    BNRDetailViewController *dvc = [[BNRDetailViewController alloc] initForNewItem:YES];
+    dvc.item = newItem;
+    dvc.dismissBlock = ^{
+        [self.tableView reloadData];
+    };
     
-    // insert this new row into the table
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dvc];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navController animated:YES completion:NULL];
+    
 }
 
 - (void)viewDidLoad
@@ -111,7 +115,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BNRDetailViewController *dvc = [[BNRDetailViewController alloc] init];
+    BNRDetailViewController *dvc = [[BNRDetailViewController alloc] initForNewItem:NO];
     NSArray *items = [[BNRItemStore sharedStore] allItems];
     BNRItem *selectedItem = items[indexPath.row];
     

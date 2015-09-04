@@ -9,6 +9,7 @@
 #import "BNRDetailViewController.h"
 
 #import "BNRItem.h"
+#import "BNRItemStore.h"
 #import "BNRImageStore.h"
 
 @interface BNRDetailViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate,
@@ -27,6 +28,29 @@
 @end
 
 @implementation BNRDetailViewController
+
+- (instancetype)initForNewItem:(BOOL)isNew
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self)
+    {
+        if (isNew)
+        {
+            UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save:)];
+            self.navigationItem.rightBarButtonItem = doneItem;
+            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+            self.navigationItem.leftBarButtonItem = cancelItem;
+        }
+    }
+    return self;
+}
+
+// make designated initializer illegal
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    [NSException raise:@"Wrong initializer" format:@"Use initForNewItem:"];
+    return nil;
+}
 
 - (IBAction)takePicture:(id)sender
 {
@@ -70,6 +94,19 @@
 {
     [self.view endEditing:YES];
 }
+
+- (void)save:(id)sender
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
+}
+
+- (void)cancel:(id)sender
+{
+    // if the user cancelled, then remove the BNRItem from the store
+    [[BNRItemStore sharedStore] removeItem:self.item];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
+}
+
 
 #pragma mark - View Lifecycle
 

@@ -10,8 +10,9 @@
 
 #import "BNRLine.h"
 
-@interface BNRDrawView ()
+@interface BNRDrawView () <UIGestureRecognizerDelegate>
 
+@property (nonatomic, strong) UIPanGestureRecognizer *moveRecognizer;
 @property (nonatomic, strong) NSMutableDictionary *linesInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
 @property (nonatomic, weak) BNRLine *selectedLine;
@@ -44,6 +45,12 @@
         UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
         [self addGestureRecognizer:pressRecognizer];
 
+        self.moveRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveLine:)];
+        self.moveRecognizer.delegate = self;
+        self.moveRecognizer.cancelsTouchesInView = NO; // we do this so that line drawing code will work
+        // if we left it as the default, we would never get any of the touchesEvent since those events are
+        // the same set used by the PanGestureRecognizer
+        [self addGestureRecognizer:self.moveRecognizer];
     }
     return self;
 }
@@ -218,6 +225,37 @@
     [self setNeedsDisplay];
 }
 
+- (void)moveLine:(UIPanGestureRecognizer *)gr
+{
+    // if we have not selected a line, nothing to do
+    if (!self.selectedLine)
+    {
+        return;
+    }
+    // the pan gesture recognizer changes its position
+    if (gr.state == UIGestureRecognizerStateChanged)
+    {
+        // how far has the pan moved
+        CGPoint translation = [gr translationInView:self];
+        
+        // add the translation to the current begin and end points of the line
+        CGPoint begin = self.selectedLine.begin;
+        CGPoint end = self.selectedLine.end;
+        begin.x += translation.x;
+        begin.y += translation.y;
+        end.x += translation.x;
+        end.y += translation.y;
+        
+        // set the new begin and end points
+        self.selectedLine.begin = begin;
+        self.selectedLine.end = end;
+
+        [self setNeedsDisplay];
+        
+        // reset the translation start point so that next call returns only the delat
+        [gr setTranslation:CGPointZero inView:self];
+    }
+}
 #pragma mark - Actions
 
 - (void)deleteLine:(id)sender
@@ -226,6 +264,16 @@
     [self.finishedLines removeObject:self.selectedLine];
     
     [self setNeedsDisplay];
+}
+
+#pragma mark - GestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (gestureRecognizer == self.moveRecognizer)
+    {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Helper methods

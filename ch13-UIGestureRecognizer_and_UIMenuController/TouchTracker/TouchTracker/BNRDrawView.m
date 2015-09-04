@@ -83,6 +83,11 @@
     }
 }
 
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 #pragma mark - Touch Event Handlers
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -163,6 +168,39 @@
     NSLog(@"Recognzied tap");
     CGPoint pt = [gr locationInView:self];
     self.selectedLine = [self lineAtPoint:pt];
+    
+    if (self.selectedLine)
+    {
+        // Make ourselves the target of menu item action messages
+        [self becomeFirstResponder];
+        
+        // Grab the menu controller
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        // Create a new "Delete" UIMenuItem
+        UIMenuItem *deleteItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(deleteLine:)];
+        menu.menuItems = @[deleteItem];
+        
+        // tell the menu where it show come show it
+        [menu setTargetRect:CGRectMake(pt.x, pt.y, 2, 2) inView:self];
+        [menu setMenuVisible:YES animated:YES];
+    }
+    else
+    {
+        // hide the menu if no line is selected
+        [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+    }
+    
+    [self setNeedsDisplay];
+
+}
+
+#pragma mark - Actions
+
+- (void)deleteLine:(id)sender
+{
+    // remove the selected line
+    [self.finishedLines removeObject:self.selectedLine];
+    
     [self setNeedsDisplay];
 }
 

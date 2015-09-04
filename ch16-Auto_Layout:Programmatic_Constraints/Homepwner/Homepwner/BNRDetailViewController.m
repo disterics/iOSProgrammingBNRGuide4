@@ -48,6 +48,8 @@
     [self.view endEditing:YES];
 }
 
+#pragma mark - View Lifecycle
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -86,6 +88,43 @@
     item.itemName = self.nameField.text;
     item.serialNumber = self.serialNumberField.text;
     item.valueInDollars = [self.valueField.text intValue];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIImageView *iv = [[UIImageView alloc] initWithImage:nil];
+    // make content mode an aspect fit
+    iv.contentMode = UIViewContentModeScaleAspectFit;
+    
+    // do not produce a translated constraint for this view
+    iv.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    // the image view was a subview of the view
+    [self.view addSubview:iv];
+    // the image view was pointed to by the imageView property
+    self.imageView = iv;
+
+    // set the vertical priorities to be less than those of the
+    // other subviews
+    [self.imageView setContentHuggingPriority:200 forAxis:UILayoutConstraintAxisVertical];
+    [self.imageView setContentCompressionResistancePriority:700 forAxis:UILayoutConstraintAxisVertical];
+    
+    // map names in the VFL to actual objects
+    NSDictionary *nameMap = @{@"imageView" : self.imageView,
+                              @"dateLabel" : self.dateLabel,
+                              @"toolbar" : self.toolbar};
+    
+    // image view is 0 pts from superview at left and right edges
+    NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[imageView]-0-|"
+                                                                             options:0 metrics:nil views:nameMap];
+    
+    // imageView is 8 pts from the dateLabel at its top edge and 8 pts from the toolbar at its bottom edge
+    NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[dateLabel]-[imageView]-[toolbar]"
+                                                                           options:0 metrics:nil views:nameMap];
+    [self.view addConstraints:horizontalConstraints];
+    [self.view addConstraints:verticalConstraints];
 }
 
 -(void)setItem:(BNRItem *)item

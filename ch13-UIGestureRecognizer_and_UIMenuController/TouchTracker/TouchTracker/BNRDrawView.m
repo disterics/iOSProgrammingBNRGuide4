@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableDictionary *linesInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
 @property (nonatomic, weak) BNRLine *selectedLine;
+@property (nonatomic) BOOL longPressInProgress;
 
 @end
 
@@ -31,6 +32,7 @@
         self.finishedLines = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor grayColor];
         self.multipleTouchEnabled = YES;
+        self.longPressInProgress = NO;
         
         UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
         doubleTapRecognizer.numberOfTapsRequired = 2;
@@ -114,6 +116,11 @@
         line.end = location;
         NSValue *key = [NSValue valueWithNonretainedObject:t]; // essentially the address of the touch event
         self.linesInProgress[key] = line;
+    }
+    if (self.selectedLine)
+    {
+        self.selectedLine = nil;
+        [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
     }
     [self setNeedsDisplay];
 }
@@ -211,6 +218,7 @@
         NSLog(@"Recognzied long press start");
         CGPoint pt = [gr locationInView:self];
         self.selectedLine = [self lineAtPoint:pt];
+        self.longPressInProgress = YES;
         
         if (self.selectedLine)
         {
@@ -221,6 +229,7 @@
     {
         NSLog(@"Recognzied long press end");
         self.selectedLine = nil;
+        self.longPressInProgress = NO;
     }
     [self setNeedsDisplay];
 }
@@ -228,7 +237,7 @@
 - (void)moveLine:(UIPanGestureRecognizer *)gr
 {
     // if we have not selected a line, nothing to do
-    if (!self.selectedLine)
+    if (!self.selectedLine || !self.longPressInProgress)
     {
         return;
     }

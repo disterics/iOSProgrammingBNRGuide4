@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIImage.h>
 
 @interface BNRItem : NSObject<NSCoding>
 
@@ -16,6 +17,7 @@
 @property (nonatomic, readonly, strong) NSDate *dateCreated;
 
 @property (nonatomic, copy) NSString *itemKey;
+@property (nonatomic, strong) UIImage *thumbnail;
 
 
 + (instancetype)randomItem;
@@ -31,5 +33,6 @@
 - (instancetype)initWithItemName:(NSString *)name
                     serialNumber:(NSString *)sNumber;
 
+- (void)setThumbnailFromImage:(UIImage *)image;
 
 @end

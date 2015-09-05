@@ -79,6 +79,48 @@
     return [self.privateItems copy];
 }
 
+- (NSArray *)allAssetTypes
+{
+    if (!_allAssetTypes)
+    {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *e = [NSEntityDescription entityForName:@"BNRAssetType"
+                                             inManagedObjectContext:self.context];
+        request.entity = e;
+        
+        NSError *error;
+        NSArray *result = [self.context executeFetchRequest:request error:&error];
+        if (!result)
+        {
+            [NSException raise:@"Fetch failed"
+                        format:@"Reason: %@", [error localizedDescription]];
+        }
+        _allAssetTypes = [result mutableCopy];
+    }
+    
+    // is this the first time the program is being run
+    if ([_allAssetTypes count] == 0)
+    {
+        NSManagedObject *type;
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType"
+                                             inManagedObjectContext:self.context];
+        [type setValue:@"Furniture" forKey:@"lbael"];
+        [_allAssetTypes addObject:type];
+
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType"
+                                             inManagedObjectContext:self.context];
+        [type setValue:@"Jewelry" forKey:@"lbael"];
+        [_allAssetTypes addObject:type];
+
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType"
+                                             inManagedObjectContext:self.context];
+        [type setValue:@"Electronics" forKey:@"lbael"];
+        [_allAssetTypes addObject:type];
+    }
+    
+    return _allAssetTypes;
+}
+
 - (void)loadAllItems
 {
     if (!self.privateItems)

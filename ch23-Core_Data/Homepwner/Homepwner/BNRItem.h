@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSDate * dateCreated;
 @property (nonatomic, strong) NSString * itemKey;
 @property (nonatomic, strong) UIImage *thumbnail;
-@property (nonatomic) double * orderingValue;
+@property (nonatomic) double orderingValue;
 @property (nonatomic, strong) NSManagedObject *assetType;
 
 - (void)setThumbnailFromImage:(UIImage *)image;

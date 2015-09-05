@@ -16,7 +16,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eEX-1V-yim">
                         <rect key="frame" x="9" y="10" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="h47-1I-kDs"/>
+                            <constraint firstAttribute="width" constant="40" placeholder="YES" id="h47-1I-kDs"/>
                             <constraint firstAttribute="height" constant="40" id="qu6-so-zuP"/>
                         </constraints>
                     </imageView>
@@ -27,8 +27,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNZ-B5-8xO">
-                        <rect key="frame" x="57" y="35" width="206" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="57" y="40" width="206" height="11"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -68,7 +68,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="imageViewHeightConstraint" destination="qu6-so-zuP" id="jgu-TQ-UX4"/>
-                <outlet property="imageViewWidthConstraint" destination="h47-1I-kDs" id="BUF-R8-o7n"/>
                 <outlet property="nameLabel" destination="XET-Wn-aMN" id="bRB-Xe-Xfd"/>
                 <outlet property="serialNumberLabel" destination="hNZ-B5-8xO" id="uQ4-Ma-HSu"/>
                 <outlet property="thumbnailView" destination="eEX-1V-yim" id="IC8-30-wxp"/>

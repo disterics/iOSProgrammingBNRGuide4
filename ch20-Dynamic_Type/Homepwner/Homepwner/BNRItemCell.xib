@@ -21,19 +21,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XET-Wn-aMN">
-                        <rect key="frame" x="57" y="9" width="206" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="8Wg-Yx-jyK"/>
-                        </constraints>
+                        <rect key="frame" x="57" y="9" width="206" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNZ-B5-8xO">
-                        <rect key="frame" x="57" y="36" width="206" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="15" id="fba-DV-oPj"/>
-                        </constraints>
+                        <rect key="frame" x="57" y="35" width="206" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -73,6 +67,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imageViewHeightConstraint" destination="qu6-so-zuP" id="jgu-TQ-UX4"/>
+                <outlet property="imageViewWidthConstraint" destination="h47-1I-kDs" id="BUF-R8-o7n"/>
                 <outlet property="nameLabel" destination="XET-Wn-aMN" id="bRB-Xe-Xfd"/>
                 <outlet property="serialNumberLabel" destination="hNZ-B5-8xO" id="uQ4-Ma-HSu"/>
                 <outlet property="thumbnailView" destination="eEX-1V-yim" id="IC8-30-wxp"/>

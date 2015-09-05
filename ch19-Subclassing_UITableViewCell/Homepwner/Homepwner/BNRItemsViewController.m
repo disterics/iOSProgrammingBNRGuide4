@@ -9,11 +9,15 @@
 #import "BNRItemsViewController.h"
 
 #import "BNRDetailViewController.h"
+#import "BNRImageStore.h"
+#import "BNRImageViewController.h"
 #import "BNRItemCell.h"
 #import "BNRItemStore.h"
 #import "BNRItem.h"
 
-@interface BNRItemsViewController ()
+@interface BNRItemsViewController () <UIPopoverControllerDelegate>
+
+@property (strong, nonatomic) UIPopoverController *imagePopover;
 
 @end
 
@@ -39,6 +43,8 @@
         // set at the right item in the navigationItem
         navItem.rightBarButtonItem = bbi;
         navItem.leftBarButtonItem = self.editButtonItem;
+        // this was needed to resolve a constraints issues
+        self.tableView.estimatedRowHeight = 2.0;
     }
     return self;
 }
@@ -100,6 +106,33 @@
     cell.valueLabel.text = [NSString stringWithFormat:@"$%d", item.valueInDollars];
     cell.thumbnailView.image = item.thumbnail;
     
+    cell.actionBlock = ^{
+        NSLog(@"Going to show the umage for %@", item);
+        
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+        {
+            NSString *itemKey = item.itemKey;
+            
+            UIImage *img = [[BNRImageStore sharedStore] imageForKey:itemKey];
+            if (!img)
+            {
+                return;
+            }
+            
+            // Make a rectangle for the frame of the thumbnail relative to our table view
+            CGRect rect = [self.view convertRect:cell.thumbnailView.bounds fromView:cell.thumbnailView];
+            // Create a new BNRImageViewControlelr and set its image
+            BNRImageViewController *ivc = [[BNRImageViewController alloc] init];
+            ivc.image = img;
+            
+            // Present a 600x600 popover from the rect
+            self.imagePopover = [[UIPopoverController alloc] initWithContentViewController:ivc];
+            self.imagePopover.delegate = self;
+            self.imagePopover.popoverContentSize = CGSizeMake(600, 600);
+            [self.imagePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    };
+    
     return cell;
 }
 
@@ -132,6 +165,12 @@
     dvc.item = selectedItem;
     // push it unto the top of the nav controller stack
     [self.navigationController pushViewController:dvc animated:YES];
+}
+
+#pragma mark - UIPopoverControllerDelegate protocol
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.imagePopover = nil;
 }
 
 @end

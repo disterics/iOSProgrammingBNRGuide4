@@ -104,17 +104,17 @@
         NSManagedObject *type;
         type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType"
                                              inManagedObjectContext:self.context];
-        [type setValue:@"Furniture" forKey:@"lbael"];
+        [type setValue:@"Furniture" forKey:@"label"];
         [_allAssetTypes addObject:type];
 
         type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType"
                                              inManagedObjectContext:self.context];
-        [type setValue:@"Jewelry" forKey:@"lbael"];
+        [type setValue:@"Jewelry" forKey:@"label"];
         [_allAssetTypes addObject:type];
 
         type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType"
                                              inManagedObjectContext:self.context];
-        [type setValue:@"Electronics" forKey:@"lbael"];
+        [type setValue:@"Electronics" forKey:@"label"];
         [_allAssetTypes addObject:type];
     }
     

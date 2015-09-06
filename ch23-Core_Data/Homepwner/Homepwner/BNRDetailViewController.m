@@ -8,6 +8,7 @@
 
 #import "BNRDetailViewController.h"
 
+#import "BNRAssetTypeViewController.h"
 #import "BNRItem.h"
 #import "BNRItemStore.h"
 #import "BNRImageStore.h"
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *serialNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *assetTypeButton;
 
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
 
@@ -107,6 +109,15 @@
     [self.view endEditing:YES];
 }
 
+- (IBAction)showAssetTypePicker:(id)sender
+{
+    [self.view endEditing:YES];
+    BNRAssetTypeViewController *avc = [[BNRAssetTypeViewController alloc] init];
+    avc.item = self.item;
+    
+    [self.navigationController pushViewController:avc animated:YES];
+}
+
 - (void)save:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
@@ -162,6 +173,13 @@
     // Get the image
     UIImage *imageToDisplay = [[BNRImageStore sharedStore] imageForKey:itemKey];
     self.imageView.image = imageToDisplay;
+    
+    NSString *typeLabel = [self.item.assetType valueForKey:@"label"];
+    if (!typeLabel)
+    {
+        typeLabel = @"None";
+    }
+    self.assetTypeButton.title = [NSString stringWithFormat:@"Type: %@", typeLabel];
     
     [self updateFonts];
 }

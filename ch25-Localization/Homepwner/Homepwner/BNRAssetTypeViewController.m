@@ -20,7 +20,12 @@
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
-    return [super initWithStyle:UITableViewStylePlain];
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self)
+    {
+        self.navigationItem.title = NSLocalizedString(@"AssetType", @"BNRAssetTypeViewController title");
+    }
+    return self;
 }
 
 - (void)viewDidLoad

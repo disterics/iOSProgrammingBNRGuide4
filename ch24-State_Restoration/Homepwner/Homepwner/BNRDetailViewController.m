@@ -161,6 +161,14 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [coder encodeObject:self.item.itemKey forKey:@"item.itemKey"];
+    // save changes into item
+    self.item.itemName = self.nameField.text;
+    self.item.serialNumber = self.serialNumberField.text;
+    self.item.valueInDollars = [self.valueField.text intValue];
+    
+    // have the sore save the changes
+    [[BNRItemStore sharedStore] saveChanges];
+
     [super encodeRestorableStateWithCoder:coder];
 }
 

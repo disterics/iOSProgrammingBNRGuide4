@@ -10,7 +10,7 @@
 #import "BNRHypnosisView.h"
 
 @interface BNRHypnosisViewController() <UITextFieldDelegate>
-
+@property (nonatomic, weak) UITextField *textField;
 @end
 
 @implementation BNRHypnosisViewController
@@ -39,17 +39,33 @@
     CGRect frame = [UIScreen mainScreen].bounds;
     BNRHypnosisView *backgroundView = [[BNRHypnosisView alloc] initWithFrame:frame];
     
-    CGRect textFieldRect = CGRectMake(40,70,240, 30);
+    CGRect textFieldRect = CGRectMake(40,-30,240, 30);
     UITextField *textField = [[UITextField alloc] initWithFrame:textFieldRect];
     
     // set the border style tso that it is easier to see
     textField.borderStyle = UITextBorderStyleRoundedRect;
     [backgroundView addSubview:textField];
+    self.textField = textField;
     textField.placeholder = @"Hypnotize me";
     textField.returnKeyType = UIReturnKeyDone;
     textField.delegate = self;
     // set it as *the* view of this view controller
     self.view = backgroundView;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [UIView animateWithDuration:2.0
+                          delay:0.0
+         usingSpringWithDamping:0.25
+          initialSpringVelocity:0.0
+                        options:0
+                     animations:^{
+                         CGRect frame = CGRectMake(40, 70, 240, 30);
+                         self.textField.frame = frame;
+                     }
+                     completion:NULL];
 }
 
 - (void)viewDidLoad

@@ -99,9 +99,13 @@
         messageLabel.alpha = 0.0;
         
         // Animate the alpha to 1.0
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
             messageLabel.alpha = 1.0;
-        }];
+        }
+         completion:NULL];
 
         [self addMotionEffectTo:messageLabel];
     }

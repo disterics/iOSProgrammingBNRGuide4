@@ -13,6 +13,7 @@
 		270FD9331B9D60C800756C2D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270FD9311B9D60C800756C2D /* LaunchScreen.xib */; };
 		270FD93F1B9D60C800756C2D /* ColorboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 270FD93E1B9D60C800756C2D /* ColorboardTests.m */; };
 		270FD9491B9D60F000756C2D /* Colorboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270FD9481B9D60F000756C2D /* Colorboard.storyboard */; };
+		270FD94C1B9D79A900756C2D /* BNRColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270FD94B1B9D79A900756C2D /* BNRColorViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,8 @@
 		270FD93D1B9D60C800756C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		270FD93E1B9D60C800756C2D /* ColorboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorboardTests.m; sourceTree = "<group>"; };
 		270FD9481B9D60F000756C2D /* Colorboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Colorboard.storyboard; sourceTree = "<group>"; };
+		270FD94A1B9D79A900756C2D /* BNRColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRColorViewController.h; sourceTree = "<group>"; };
+		270FD94B1B9D79A900756C2D /* BNRColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRColorViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,8 @@
 				270FD9311B9D60C800756C2D /* LaunchScreen.xib */,
 				270FD9281B9D60C800756C2D /* Supporting Files */,
 				270FD9481B9D60F000756C2D /* Colorboard.storyboard */,
+				270FD94A1B9D79A900756C2D /* BNRColorViewController.h */,
+				270FD94B1B9D79A900756C2D /* BNRColorViewController.m */,
 			);
 			path = Colorboard;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 			files = (
 				270FD92E1B9D60C800756C2D /* AppDelegate.m in Sources */,
 				270FD92B1B9D60C800756C2D /* main.m in Sources */,
+				270FD94C1B9D79A900756C2D /* BNRColorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

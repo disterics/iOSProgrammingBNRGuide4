@@ -272,7 +272,7 @@
         {
             if ([identifier isEqualToString:item.itemKey])
             {
-                int row = [items indexOfObjectIdenticalTo:item];
+                int row = (int)[items indexOfObjectIdenticalTo:item];
                 indexPath = [NSIndexPath indexPathForRow:row inSection:0];
                 break;
             }

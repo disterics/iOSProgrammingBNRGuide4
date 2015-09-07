@@ -39,6 +39,9 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+
         if (isNew)
         {
             UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save:)];

@@ -37,6 +37,8 @@
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Homepwner";
         
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
         // new bar button that will create a new item
         UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
         
@@ -71,6 +73,7 @@
     };
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dvc];
+    navController.restorationIdentifier = [NSStringFromClass([navController class])];
     navController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:navController animated:YES completion:NULL];
     

@@ -27,6 +27,10 @@
     
     // create a navigationcontroller
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
+    
+    // Give the navigation controller a restoration identifier that is the name of the class
+    navController.restorationIdentifier = NSStringFromClass([navController class]);
+    
     // place the navigation controller in the window hierarchy
     self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];

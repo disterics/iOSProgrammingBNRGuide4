@@ -44,6 +44,7 @@
     return [[self alloc] initForNewItem:isNew];
 }
 
+
 - (instancetype)initForNewItem:(BOOL)isNew
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -156,6 +157,28 @@
     self.serialNumberField.font = font;
     self.valueField.font = font;
 }
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.item.itemKey forKey:@"item.itemKey"];
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    NSString *itemKey = [coder decodeObjectForKey:@"item.itemKey"];
+    
+    for (BNRItem *item in [[BNRItemStore sharedStore] allItems])
+    {
+        if ([itemKey isEqualToString:item.itemKey])
+        {
+            self.item = item;
+            break;
+        }
+    }
+    [super decodeRestorableStateWithCoder:coder];
+}
+
 #pragma mark - View Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated

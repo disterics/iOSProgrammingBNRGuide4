@@ -95,6 +95,13 @@
         
         // Add the label to the hierarchy
         [self.view addSubview:messageLabel];
+        // Set the labels initial alpha
+        messageLabel.alpha = 0.0;
+        
+        // Animate the alpha to 1.0
+        [UIView animateWithDuration:0.5 animations:^{
+            messageLabel.alpha = 1.0;
+        }];
 
         [self addMotionEffectTo:messageLabel];
     }

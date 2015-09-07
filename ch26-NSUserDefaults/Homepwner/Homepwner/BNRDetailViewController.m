@@ -8,6 +8,7 @@
 
 #import "BNRDetailViewController.h"
 
+#import "AppDelegate.h"
 #import "BNRAssetTypeViewController.h"
 #import "BNRItem.h"
 #import "BNRItemStore.h"
@@ -239,7 +240,17 @@
     BNRItem *item = self.item;
     item.itemName = self.nameField.text;
     item.serialNumber = self.serialNumberField.text;
-    item.valueInDollars = [self.valueField.text intValue];
+    int newValue = [self.valueField.text intValue];
+    //Is it changed?
+    if (newValue != item.valueInDollars)
+    {
+        // Put it in the item
+        item.valueInDollars = newValue;
+        
+        // Store it as the default value for the next item
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setInteger:newValue forKey:BNRNextItemValuePrefsKey];
+    }
 }
 
 - (void)viewDidLoad

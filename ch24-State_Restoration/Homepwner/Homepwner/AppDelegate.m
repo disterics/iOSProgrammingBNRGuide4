@@ -18,22 +18,30 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    return YES;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    BNRItemsViewController *itemsViewController = [[BNRItemsViewController alloc] init];
+    // if state restoration did not occur
+    if (!self.window.rootViewController) {
+        // Override point for customization after application launch.
+        BNRItemsViewController *itemsViewController = [[BNRItemsViewController alloc] init];
     
-    // create a navigationcontroller
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
+        // create a navigationcontroller
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
     
-    // Give the navigation controller a restoration identifier that is the name of the class
-    navController.restorationIdentifier = NSStringFromClass([navController class]);
+        // Give the navigation controller a restoration identifier that is the name of the class
+        navController.restorationIdentifier = NSStringFromClass([navController class]);
     
-    // place the navigation controller in the window hierarchy
-    self.window.rootViewController = navController;
-    self.window.backgroundColor = [UIColor whiteColor];
+        // place the navigation controller in the window hierarchy
+        self.window.rootViewController = navController;
+    }
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -89,6 +89,8 @@
 			children = (
 				270FD92C1B9D60C800756C2D /* AppDelegate.h */,
 				270FD92D1B9D60C800756C2D /* AppDelegate.m */,
+				270FD9501B9D820C00756C2D /* BNRColorDescription.h */,
+				270FD9511B9D820C00756C2D /* BNRColorDescription.m */,
 				270FD94A1B9D79A900756C2D /* BNRColorViewController.h */,
 				270FD94B1B9D79A900756C2D /* BNRColorViewController.m */,
 				270FD94D1B9D80F100756C2D /* BNRPaletteViewController.h */,
@@ -97,8 +99,6 @@
 				270FD92F1B9D60C800756C2D /* Images.xcassets */,
 				270FD9311B9D60C800756C2D /* LaunchScreen.xib */,
 				270FD9281B9D60C800756C2D /* Supporting Files */,
-				270FD9501B9D820C00756C2D /* BNRColorDescription.h */,
-				270FD9511B9D820C00756C2D /* BNRColorDescription.m */,
 			);
 			path = Colorboard;
 			sourceTree = "<group>";

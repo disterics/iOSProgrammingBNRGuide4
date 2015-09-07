@@ -44,7 +44,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="RHB-xA-mks" kind="show" id="2hq-n5-ZFm"/>
+                                    <segue destination="RHB-xA-mks" kind="show" identifier="ExistingColor" id="2hq-n5-ZFm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -57,7 +57,7 @@
                     <navigationItem key="navigationItem" title="Colors" id="kgY-oN-Vui">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="sgD-QK-00X">
                             <connections>
-                                <segue destination="ApM-79-38h" kind="presentation" id="vu0-zy-axm"/>
+                                <segue destination="ApM-79-38h" kind="presentation" identifier="NewColor" id="vu0-zy-axm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

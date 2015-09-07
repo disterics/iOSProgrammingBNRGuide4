@@ -8,6 +8,8 @@
 
 #import "BNRColorViewController.h"
 
+#import "BNRColorDescription.h"
+
 @interface BNRColorViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -36,4 +38,39 @@
     self.view.backgroundColor = newColor;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // Remove the done button if this is an existing color
+    if (self.existingColor)
+    {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIColor *color = self.colorDescription.color;
+    CGFloat red, green, blue;
+    [color getRed:&red
+            green:&green
+             blue:&blue
+            alpha:nil];
+    //set the initial slider values
+    self.redSlider.value = red;
+    self.greenSlider.value = green;
+    self.blueSlider.value = blue;
+    
+    // set the background color and the text field value
+    self.view.backgroundColor = color;
+    self.textField.text = self.colorDescription.name;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.colorDescription.name = self.textField.text;
+    self.colorDescription.color = self.view.backgroundColor;
+}
 @end

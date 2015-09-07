@@ -8,6 +8,11 @@
 
 @import UIKit;
 
+@class BNRColorDescription;
+
 @interface BNRColorViewController : UIViewController
+
+@property (nonatomic) BOOL existingColor;
+@property (nonatomic) BNRColorDescription *colorDescription;
 
 @end

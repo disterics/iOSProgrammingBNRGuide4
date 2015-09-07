@@ -34,6 +34,16 @@
 
 @implementation BNRDetailViewController
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)path coder:(NSCoder *)coder
+{
+    BOOL isNew = NO;
+    if ([path count] == 3)
+    {
+        isNew = YES;
+    }
+    return [[self alloc] initForNewItem:isNew];
+}
+
 - (instancetype)initForNewItem:(BOOL)isNew
 {
     self = [super initWithNibName:nil bundle:nil];

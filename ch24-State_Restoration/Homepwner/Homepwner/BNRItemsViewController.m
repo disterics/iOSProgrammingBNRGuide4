@@ -23,6 +23,11 @@
 
 @implementation BNRItemsViewController
 
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    return [[self alloc] init];
+}
+
 - (instancetype) init
 {
     return [self initWithStyle:UITableViewStylePlain];
@@ -73,7 +78,7 @@
     };
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dvc];
-    navController.restorationIdentifier = [NSStringFromClass([navController class])];
+    navController.restorationIdentifier = NSStringFromClass([navController class]);
     navController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:navController animated:YES completion:NULL];
     

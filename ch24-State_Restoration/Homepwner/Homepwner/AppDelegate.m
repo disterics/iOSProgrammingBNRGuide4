@@ -92,4 +92,24 @@
     return YES;
 }
 
+- (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    // Create a new navigation controller
+    UIViewController *vc = [[UINavigationController alloc] init];
+    //the last object in the path array is the restoration identiier for this view controller
+    vc.restorationIdentifier = [identifierComponents lastObject];
+    if ([identifierComponents count] == 1)
+    {
+        // since there is only 1, this is th eroot view controller
+        self.window.rootViewController = vc;
+    }
+    else
+    {
+        // it s the nav controller for a new item
+        // so set the modela presentation style
+        vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    return vc;
+}
+
 @end

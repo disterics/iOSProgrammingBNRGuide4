@@ -107,6 +107,27 @@
         }
          completion:NULL];
 
+        // animate with key frames
+        [UIView animateKeyframesWithDuration:1.0
+                                       delay:0.0
+                                     options:0
+                                  animations:^{
+                                      [UIView addKeyframeWithRelativeStartTime:0
+                                                              relativeDuration:0.8
+                                                                    animations:^{
+                                                                        messageLabel.center = self.view.center;
+                                                                    }];
+                                      [UIView addKeyframeWithRelativeStartTime:0.8
+                                                              relativeDuration:0.2
+                                                                    animations:^{
+                                                                        int x = arc4random() % width;
+                                                                        int y = arc4random() % height;
+                                                                        messageLabel.center = CGPointMake(x, y);
+                                                                    }];
+                                  }
+                                  completion:^(BOOL finished) {
+                                      NSLog(@"Animation finished");
+                                  }];
         [self addMotionEffectTo:messageLabel];
     }
 }

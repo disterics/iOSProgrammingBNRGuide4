@@ -15,7 +15,7 @@
 #import "BNRItemStore.h"
 #import "BNRItem.h"
 
-@interface BNRItemsViewController () <UIPopoverControllerDelegate>
+@interface BNRItemsViewController () <UIPopoverControllerDelegate, UIDataSourceModelAssociation>
 
 @property (strong, nonatomic) UIPopoverController *imagePopover;
 
@@ -92,6 +92,9 @@
     UINib *nib = [UINib nibWithNibName:@"BNRItemCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"BNRItemCell"];
     //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    
+    // self.tableView.restorationIdentifier = NSStringFromClass([self class]);
+    self.tableView.restorationIdentifier = @"BNRItemsViewControllerTableView";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -214,6 +217,53 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     self.imagePopover = nil;
+}
+
+#pragma mark - State Preservation and Restoration
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [coder encodeBool:self.isEditing forKey:@"TableViewIsEditing"];
+    
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    self.editing = [coder decodeBoolForKey:@"TableViewIsEditing"];
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
+{
+    NSString *identifier = nil;
+    
+    if (idx && view)
+    {
+        // Return an identifier of the given index path
+        // in case next time the data source changes
+        BNRItem *item = [[BNRItemStore sharedStore] allItems][idx.row];
+        identifier = item.itemKey;
+    }
+    return identifier;
+}
+
+- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view
+{
+    NSIndexPath *indexPath = nil;
+    if (identifier && view)
+    {
+        NSArray *items = [[BNRItemStore sharedStore] allItems];
+        for (BNRItem *item in items)
+        {
+            if ([identifier isEqualToString:item.itemKey])
+            {
+                int row = [items indexOfObjectIdenticalTo:item];
+                indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+                break;
+            }
+        }
+    }
+    return indexPath;
 }
 
 @end
